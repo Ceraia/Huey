@@ -7,7 +7,7 @@ colors = [
     ("White", 0, 0.0, 0),
     ("Black", 0, 0.0, -84), 
     ("Gray", 0, 0.0, -64),
-    ("Red", 0, 0.5, -55),  
+    ("Red", 0, 0.6, -40),  
     ("Green", 120, 0.30, -60),
     ("Olive", 78, 0.20, -45),
     ("Blue", 208, 0.61, -55),
@@ -61,20 +61,36 @@ def process_images(input_folder):
 
                 # Determine if the image is in the shirts or pants folder
                 folder_name = os.path.basename(root)
-                if folder_name.lower() == 'shirts':
+                parent_folder = os.path.basename(os.path.dirname(root))
+
+                if parent_folder == 'Shirts':
                     output_filename = "Shirt.png"
-                elif folder_name.lower() == 'pants':
+                elif parent_folder == 'Pants':
                     output_filename = "Pants.png"
                 else:
                     continue  # Skip if not in the expected folders
+                
+                # Skip if the item is called Overlay.png
+                if base_name.lower() == 'overlay':
+                    continue
+
+                # Load overlay if it exists, checking one folder deeper
+                overlay_path = os.path.join(root, "overlay.png")
+                overlay_img = None
+                if os.path.exists(overlay_path):
+                    overlay_img = Image.open(overlay_path).convert('RGBA')
 
                 # Apply all color transformations
                 for color_name, hue_shift, saturation_scale, brightness_percent in colors:
                     new_img = adjust_hue_saturation_brightness(img, hue_shift, saturation_scale, brightness_percent)
 
+                    # If an overlay exists, composite it onto the transformed image
+                    if overlay_img:
+                        new_img = Image.alpha_composite(new_img, overlay_img)
+
                     # Create output folder using the naming convention
                     itemname = f"{base_name}_{color_name}"
-                    output_location = os.path.join(output_folder, itemname)
+                    output_location = os.path.join(output_folder, parent_folder, itemname)
                     os.makedirs(output_location, exist_ok=True)
 
                     # Save the transformed image in the output folder

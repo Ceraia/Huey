@@ -59,17 +59,6 @@ def process_images(input_folder):
                 # Get the base filename without the extension
                 base_name = os.path.splitext(filename)[0]
 
-                # Determine if the image is in the shirts or pants folder
-                folder_name = os.path.basename(root)
-                parent_folder = os.path.basename(os.path.dirname(root))
-
-                if parent_folder == 'Shirts':
-                    output_filename = "Shirt.png"
-                elif parent_folder == 'Pants':
-                    output_filename = "Pants.png"
-                else:
-                    continue  # Skip if not in the expected folders
-                
                 # Skip if the item is called Overlay.png
                 if base_name.lower() == 'overlay':
                     continue
@@ -88,13 +77,13 @@ def process_images(input_folder):
                     if overlay_img:
                         new_img = Image.alpha_composite(new_img, overlay_img)
 
-                    # Create output folder using the naming convention
-                    itemname = f"{base_name}_{color_name}"
-                    output_location = os.path.join(output_folder, parent_folder, folder_name, itemname)
+                    # Determine output folder structure based on subdirectory
+                    relative_path = os.path.relpath(root, input_folder)
+                    output_location = os.path.join(output_folder, relative_path)
                     os.makedirs(output_location, exist_ok=True)
 
                     # Save the transformed image in the output folder
-                    output_file_path = os.path.join(output_location, output_filename)
+                    output_file_path = os.path.join(output_location, f"{base_name}_{color_name}.png")
                     new_img.save(output_file_path)
                     print(f"Generated: {output_file_path}")
 

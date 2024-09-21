@@ -51,7 +51,7 @@ def adjust_hue_saturation_brightness(image, hue_shift, saturation_scale, brightn
 def process_images(input_folder):
     # Process each PNG file in the input folder
     for root, dirs, files in os.walk(input_folder):
-        for filename in files:
+        for filename in files: 
             if filename.endswith(".png"):
                 img_path = os.path.join(root, filename)
                 img = Image.open(img_path)
@@ -90,7 +90,7 @@ def process_images(input_folder):
 
                     # Create output folder using the naming convention
                     itemname = f"{base_name}_{color_name}"
-                    output_location = os.path.join(output_folder, parent_folder, itemname)
+                    output_location = os.path.join(output_folder, parent_folder, folder_name, itemname)
                     os.makedirs(output_location, exist_ok=True)
 
                     # Save the transformed image in the output folder

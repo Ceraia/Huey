@@ -21,3 +21,21 @@ Make sure you have python installed.
 
 4. ???
 5. Profit.
+
+### Using it
+
+As you may have noticed, within the input folder you have multiple files and folders.
+You can add multiple files in any folder, however it is limited by type and by depth.
+
+#### Different colors
+
+You can always add or remove colors, the colors are modified using the Hue, Saturation and Brightness modifiers set at the top of the script.
+
+#### Overlay
+
+If you want a part of an image not to be changed from color you can make an `Overlay.png`, an `Overlay.png` will be overlayed on any PNG file within the directory.
+This will allow you to easily add shoes, such as the example for the shorts.
+
+#### Shirt or Pants?
+
+You can make both, just put the png file in the appropriate location within the folder structure.

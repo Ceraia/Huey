@@ -4,16 +4,16 @@ import colorsys
 
 # List of color transformations with hue, saturation (%), and brightness adjustment (percentage)
 colors = [
-    ("white", 0, 0.0, 0),
-    ("black", 0, 0.0, -84), 
-    ("gray", 0, 0.0, -64),
-    ("red", 0, 0.6, -40),  
-    ("green", 120, 0.30, -60),
-    ("olive", 78, 0.20, -45),
-    ("blue", 208, 0.61, -55),
-    ("navy", 208, 0.45, -65),
-    ("pink", 306, 0.40, 0),
-    ("purple", 295, 0.25, -50),
+    ("White", 0, 0.0, 0),
+    ("Black", 0, 0.0, -84), 
+    ("Gray", 0, 0.0, -64),
+    ("Red", 0, 0.6, -40),  
+    ("Green", 120, 0.30, -60),
+    ("Olive", 78, 0.20, -45),
+    ("Blue", 208, 0.61, -55),
+    ("Navy", 208, 0.45, -65),
+    ("Pink", 306, 0.40, 0),
+    ("Purple", 295, 0.25, -50),
 ]
 
 # Function to adjust hue, saturation, and brightness (as percentage) while preserving transparency
@@ -33,7 +33,7 @@ def adjust_hue_saturation_brightness(image, hue_shift, saturation_scale, brightn
             h, l, s = colorsys.rgb_to_hls(r / 255.0, g / 255.0, b / 255.0)
 
             # Directly adjust hue based on the desired shift in degrees, normalized
-            h = hue_shift / 360.0
+            h = (hue_shift / 360.0) % 1.0
 
             # Adjust saturation (scaling based on provided value)
             s = saturation_scale
@@ -48,27 +48,33 @@ def adjust_hue_saturation_brightness(image, hue_shift, saturation_scale, brightn
 
     return img
 
-def process_images(input_folder, output_folder):
-    # Ensure output folder exists
-    if not os.path.exists(output_folder):
-        os.makedirs(output_folder)
-
+def process_images(input_folder):
     # Process each PNG file in the input folder
     for filename in os.listdir(input_folder):
         if filename.endswith(".png"):
             img_path = os.path.join(input_folder, filename)
             img = Image.open(img_path)
 
+            # Get the base filename without the extension
+            base_name = os.path.splitext(filename)[0]
+
             # Apply all color transformations
             for color_name, hue_shift, saturation_scale, brightness_percent in colors:
                 new_img = adjust_hue_saturation_brightness(img, hue_shift, saturation_scale, brightness_percent)
 
-                # Save the transformed image in the output folder with a descriptive name
-                output_filename = f"{os.path.splitext(filename)[0]}_{color_name}.png"
-                new_img.save(os.path.join(output_folder, output_filename))
+                
+
+                # Create output folder using the naming convention
+                itemname = f"{base_name}_{color_name}"
+                output_location = output_folder + "\\" + itemname
+                os.makedirs(output_location, exist_ok=True)
+
+                # Save the transformed image in the output folder as Shirt.png
+                output_filename = os.path.join(output_location, "Shirt.png")
+                new_img.save(output_filename)
                 print(f"Generated: {output_filename}")
 
 # Example usage
-input_folder = "input_folder_path"  # Replace with your input folder path
-output_folder = "output_folder_path"  # Replace with your output folder path
-process_images(input_folder, output_folder)
+input_folder = "input" 
+output_folder = "output"
+process_images(input_folder)

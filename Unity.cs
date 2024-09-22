@@ -27,20 +27,33 @@ namespace Editor
             "Item.prefab"
         };
 
-        [MenuItem("Assets/ClothingBuilder/Build Shirts", false, 10)]
-        private static void AdjustImageColors()
+        [MenuItem("Assets/Clothing Builder/Build Shirts", false, 10)]
+        private static void BuildShirts()
         {
             foreach (var obj in Selection.objects)
             {
                 if (obj is Texture2D texture)
                 {
                     string path = AssetDatabase.GetAssetPath(texture);
-                    AdjustImage(path, true);
+                    BuildClothing(path, true);
                 }
             }
         }
 
-        private static void AdjustImage(string path, bool isShirt)
+        [MenuItem("Assets/Clothing Builder/Build Pants", false, 10)]
+        private static void BuildPants()
+        {
+            foreach (var obj in Selection.objects)
+            {
+                if (obj is Texture2D texture)
+                {
+                    string path = AssetDatabase.GetAssetPath(texture);
+                    BuildClothing(path, false);
+                }
+            }
+        }
+
+        private static void BuildClothing(string path, bool isShirt = true)
         {
             using (var img = new Bitmap(path))
             {
@@ -58,7 +71,10 @@ namespace Editor
                     Directory.CreateDirectory(colorOutputFolder);
                     Debug.Log($"Created folder: {colorOutputFolder}");
 
-                    string outputFileName = $"{baseFolderName}_{colorName}.png";
+                    string outputFileName = $"Pants.png";
+                    if (isShirt) outputFileName = $"Shirt.png";
+
+
                     string outputPath = Path.Combine(colorOutputFolder, outputFileName);
                     newImg.Save(outputPath, ImageFormat.Png);
                     Debug.Log($"Generated: {outputPath}");
@@ -66,7 +82,9 @@ namespace Editor
                     SetTextureImportSettings(outputPath);
                     CreateMaterial(colorOutputFolder, outputFileName);
 
-                    CopyPrefabs(Path.GetDirectoryName(path), colorOutputFolder);
+                    CopyPrefabs(Path.GetDirectoryName(path), colorOutputFolder, outputFileName);
+
+
                 }
             }
         }
@@ -82,7 +100,8 @@ namespace Editor
             material.mainTexture = texture;
 
             // Set smoothness to 0
-            material.SetFloat("_Smoothness", 0);
+            material.SetFloat("_Smoothness", 0f);
+            material.SetFloat("_Glossiness", 0f);  // Depending on Unity version, _Glossiness may also affect smoothness
 
             // Change rendering mode to cutout
             material.SetFloat("_Mode", 1); // 0 = Opaque, 1 = Cutout, 2 = Fade, 3 = Transparent
@@ -101,7 +120,7 @@ namespace Editor
         }
 
 
-        private static void CopyPrefabs(string sourceFolder, string destinationFolder)
+        private static void CopyPrefabs(string sourceFolder, string destinationFolder, string outputFileName)
         {
             Debug.Log($"Copying prefabs to: {destinationFolder}");
             foreach (var prefab in prefabsToCopy)
@@ -115,8 +134,11 @@ namespace Editor
                     File.Copy(sourcePath, destinationPath, true);
                     Debug.Log($"Copied: {prefab} to {destinationFolder}");
 
-                    // Load the prefab and assign the new material
-                    ApplyMaterialToPrefab(destinationPath, Path.Combine(destinationFolder, Path.GetFileNameWithoutExtension(prefab) + ".mat"));
+                    if (prefab == "Item.prefab")
+                    {
+                        EditorApplication.delayCall += () =>
+                            ApplyMaterialToPrefab(destinationPath, Path.Combine(destinationFolder, Path.GetFileNameWithoutExtension(outputFileName) + ".mat"));
+                    }
                 }
                 else
                 {
@@ -127,6 +149,9 @@ namespace Editor
 
         private static void ApplyMaterialToPrefab(string prefabPath, string materialPath)
         {
+            // Reload Asset Database
+            AssetDatabase.Refresh();
+
             // Load the prefab
             GameObject prefab = AssetDatabase.LoadAssetAtPath<GameObject>(prefabPath);
             if (prefab == null)
@@ -143,42 +168,29 @@ namespace Editor
                 return;
             }
 
-            // Find the MeshRenderer and assign the new material
-            MeshRenderer[] renderers = prefab.GetComponentsInChildren<MeshRenderer>();
+            // Find all renderers (both MeshRenderer and SkinnedMeshRenderer)
+            Renderer[] renderers = prefab.GetComponentsInChildren<Renderer>();
             if (renderers.Length == 0)
             {
-                Debug.LogWarning($"No MeshRenderers found in prefab: {prefabPath}");
+                Debug.LogWarning($"No Renderers found in prefab: {prefabPath}");
                 return;
             }
 
             foreach (var renderer in renderers)
             {
-                Material[] materials = renderer.sharedMaterials;
-                bool materialApplied = false;
-
+                // Replace all materials with the new one
+                Material[] materials = new Material[renderer.sharedMaterials.Length];
                 for (int i = 0; i < materials.Length; i++)
                 {
-                    materials[i] = material; // Assign the new material
-                    materialApplied = true;
+                    materials[i] = material;  // Assign the new material
                 }
-
-                if (materialApplied)
-                {
-                    renderer.sharedMaterials = materials; // Update the materials
-                    Debug.Log($"Applied material to renderer in prefab: {prefabPath}");
-                }
-                else
-                {
-                    Debug.LogWarning($"Material not applied to renderer: {renderer.name}");
-                }
+                renderer.sharedMaterials = materials;  // Update the renderer materials
             }
 
-            // Save the prefab
+            // Save the prefab with the updated material
             PrefabUtility.SavePrefabAsset(prefab);
-            Debug.Log($"Saved prefab with new material: {prefabPath}");
+            Debug.Log($"Applied material and saved prefab: {prefabPath}");
         }
-
-
 
         private static void SetTextureImportSettings(string path)
         {

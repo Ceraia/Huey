@@ -1,51 +1,45 @@
-# Huey
+# Huey (v2)
 
-A very simple script to automatically generate color variations of clothing, primarily meant for Unturned.
+A utility script to produce color variations of clothing within Unity for Unturned.
 
-## Table of Contens
-- [Huey](#huey)
-  - [Table of Contens](#table-of-contens)
-  - [1. How to use](#1-how-to-use)
-    - [1.1. Getting started](#11-getting-started)
-    - [1.2. Using it](#12-using-it)
-      - [1.2.1. Different colors](#121-different-colors)
-      - [1.2.2. Overlay](#122-overlay)
-      - [1.2.3. Shirt or Pants?](#123-shirt-or-pants)
+## 1. Table of Contents
 
-## 1. How to use
+- [Huey (v2)](#huey-v2)
+  - [1. Table of Contents](#1-table-of-contents)
+  - [2. How to install](#2-how-to-install)
+    - [2.1. Unity Package File](#21-unity-package-file)
+    - [2.2. Manually Moving Huey Scripts](#22-manually-moving-huey-scripts)
+  - [3. How to use](#3-how-to-use)
+    - [3.1. Using textures](#31-using-textures)
+    - [3.2. Different colors](#32-different-colors)
+    - [3.3. Overlay](#33-overlay)
 
-Using this is fairly simple, as long as you understand a little bit of Python.
+## 2. How to install
 
-### 1.1. Getting started
-Make sure you have python installed.
+Using this has become a lot more simple than the old v1 version.
 
-1. Install Pillow:
-   
-   `pip install pillow`
+### 2.1. Unity Package File
 
-2. Put your PNG's in the input folder as shown in the repo.
+Easiest is to import the unity package file and then you are done.
 
-3. Run the application:
-   
-   `python index.py`
+### 2.2. Manually Moving Huey Scripts
 
-4. ???
-5. Profit.
+You can move the Huey folder in this repository into the root of your project, and then everything should work swell.
 
-### 1.2. Using it
+## 3. How to use
 
-As you may have noticed, within the input folder you have multiple files and folders.
-You can add multiple files in any folder, however it is limited by type and by depth.
+Using it has become a lot simpler, simply right click anywhere in your unity editor, and if everything has been installed correctly you will be able to see an option for `Huey`, and then select `Process Clothing`.
 
-#### 1.2.1. Different colors
+![Right click menu option showcase](image.png)
 
-You can always add or remove colors, the colors are modified using the Hue, Saturation and Brightness modifiers set at the top of the script.
+### 3.1. Using textures
 
-#### 1.2.2. Overlay
+You can add any (preferably white) texture and the script will automatically create color variations.
 
-If you want a part of an image not to be changed from color you can make an `Overlay.png`, an `Overlay.png` will be overlayed on any PNG file within the directory.
-This will allow you to easily add shoes, such as the example for the shorts.
+### 3.2. Different colors
 
-#### 1.2.3. Shirt or Pants?
+You can always add or remove colors, the colors are modified using the Hue, Saturation and Brightness modifiers set in the ColorSettings file.
 
-You can make both, just put the png file in the appropriate location within the folder structure.
+### 3.3. Overlay
+
+If you want a part of an image not to be changed from color you can make an Overlay.png, an Overlay.png will be overlayed on any PNG file within the directory. This will allow you to easily add shoes, such as the example for the shorts.

@@ -1,0 +1,55 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f23ed14a52d20e147b9d2aa108608b64, type: 3}
+  m_Name: ColorSettings
+  m_EditorClassIdentifier: 
+  colors:
+  - name: White
+    hueShift: 0
+    saturationScale: 0
+    lightnessPercent: 0
+  - name: Black
+    hueShift: 0
+    saturationScale: 0
+    lightnessPercent: -84
+  - name: Red
+    hueShift: 0
+    saturationScale: 0.6
+    lightnessPercent: -40
+  - name: Green
+    hueShift: 120
+    saturationScale: 0.3
+    lightnessPercent: -60
+  - name: Olive
+    hueShift: 78
+    saturationScale: 0.2
+    lightnessPercent: -45
+  - name: Blue
+    hueShift: 208
+    saturationScale: 0.61
+    lightnessPercent: -55
+  - name: Navy
+    hueShift: 208
+    saturationScale: 0.45
+    lightnessPercent: -65
+  - name: Pink
+    hueShift: 306
+    saturationScale: 0.4
+    lightnessPercent: 0
+  - name: Peach
+    hueShift: 27
+    saturationScale: 0.2
+    lightnessPercent: -30
+  - name: Tan
+    hueShift: 27
+    saturationScale: 0.1
+    lightnessPercent: -20

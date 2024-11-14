@@ -2,9 +2,37 @@
 
 A utility script to produce color variations of clothing within Unity for Unturned.
 
+# Huey License (Based on AGPL-3.0)
+
+**Preamble**
+
+This license is based on the GNU Affero General Public License, version 3 (AGPL-3.0). It grants users the freedom to use, modify, and distribute the software, provided that modifications and improvements are shared with the community under the same terms. Additionally, any derivative work, service, or software that incorporates this project, *Huey*, must acknowledge its use of the project.
+
+## Terms and Conditions for Copying, Distribution, and Modification
+
+**0. Definitions**
+
+This License applies to any program or other work that contains a notice placed by the copyright holder stating it is licensed under the terms of this *Huey License*.
+
+**1. Additional Requirement: Acknowledgment of Use**
+
+In addition to the conditions set forth in AGPL-3.0, the following terms apply:
+
+- Any work, product, or service that includes or is derived from the Huey project, or any modified version of it, must include a clear and visible acknowledgment in the documentation, source code, or user interface stating: “This project uses Huey, originally developed by Jasper Visser.”
+  
+- The acknowledgment must be retained in any modified versions and be accessible to users or viewers of the derived work in a prominent place.
+
+**2. Remaining License Terms**
+
+All other terms of the AGPL-3.0 apply to this software. You must comply with the AGPL-3.0 in all respects, with the additional acknowledgment requirement listed above.
+
+---
+
 ## 1. Table of Contents
 
 - [Huey (v2)](#huey-v2)
+- [Huey License (Based on AGPL-3.0)](#huey-license-based-on-agpl-30)
+  - [Terms and Conditions for Copying, Distribution, and Modification](#terms-and-conditions-for-copying-distribution-and-modification)
   - [1. Table of Contents](#1-table-of-contents)
   - [2. How to install](#2-how-to-install)
     - [2.1. Unity Package File](#21-unity-package-file)

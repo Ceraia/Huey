@@ -1,3 +1,29 @@
+Huey License (Based on AGPL-3.0)
+
+Preamble
+
+This license is based on the GNU Affero General Public License, version 3 (AGPL-3.0). It grants users the freedom to use, modify, and distribute the software, provided that modifications and improvements are shared with the community under the same terms. Additionally, any derivative work, service, or software that incorporates this project, *Huey*, must acknowledge its use of the project.
+
+Terms and Conditions for Copying, Distribution, and Modification
+
+1. Definitions
+
+This License applies to any program or other work that contains a notice placed by the copyright holder stating it is licensed under the terms of this *Huey License*.
+
+2. Additional Requirement: Acknowledgment of Use
+
+In addition to the conditions set forth in AGPL-3.0, the following terms apply:
+
+- Any work, product, or service that includes or is derived from the Huey project, or any modified version of it, must include a clear and visible acknowledgment in the documentation, source code, or user interface stating: “This project uses Huey, originally developed by Jasper Visser.”
+  
+- The acknowledgment must be retained in any modified versions and be accessible to users or viewers of the derived work in a prominent place.
+
+3. Remaining License Terms
+
+All other terms of the AGPL-3.0 apply to this software. You must comply with the AGPL-3.0 in all respects, with the additional acknowledgment requirement listed above.
+
+
+
                     GNU AFFERO GENERAL PUBLIC LICENSE
                        Version 3, 19 November 2007
 
@@ -58,7 +84,7 @@ modification follow.
 
                        TERMS AND CONDITIONS
 
-  0. Definitions.
+  1. Definitions.
 
   "This License" refers to version 3 of the GNU Affero General Public License.
 

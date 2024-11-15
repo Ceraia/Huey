@@ -13,7 +13,10 @@ namespace Editor
             [Range(0, 1)] public float saturationScale;
             [Range(-100, 100)] public float lightnessPercent;
         }
+        // Export directory path
+        public string ExportLocation = "Assets/Huey/Output";
 
+        // List of color settings
         public ColorSettings[] colors;
     }
 }

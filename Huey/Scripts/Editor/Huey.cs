@@ -105,10 +105,6 @@ namespace Editor
                         string outputPath = Path.Combine(colorOutputDir, outputFileName);
 
                         finalImg.Save(outputPath, ImageFormat.Png);
-                        finalImg.Save(outputPath, ImageFormat.Png);
-                        AssetDatabase.Refresh();
-
-                        finalImg.Save(outputPath, ImageFormat.Png);
                         AssetDatabase.Refresh();
 
                         SetTextureImportSettings(outputPath);
@@ -304,6 +300,8 @@ namespace Editor
             material.DisableKeyword("_ALPHABLEND");
             material.EnableKeyword("_ALPHATEST");
             material.DisableKeyword("_TRANSPARENT");
+
+            File.WriteAllText(Path.Combine(folderPath, ".huey"), "");
 
             AssetDatabase.CreateAsset(material, materialPath);
             AssetDatabase.SaveAssets();

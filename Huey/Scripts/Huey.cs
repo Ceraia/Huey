@@ -5,7 +5,7 @@ using System.Drawing;
 using System.Drawing.Imaging;
 
 //----------------------------------------------------//
-//                      HUEY - V2.0.0                 //
+//                      HUEY - V2.1.0                 //
 //            https://github.com/Ceraia/Huey          //
 //           Made by Axodouble & contributors.        //
 //  I know the code is messy, but in BowieD's style:  //
@@ -27,13 +27,15 @@ namespace Editor
         [MenuItem("Assets/Huey/Process Clothing", false, 10)]
         private static void ProcessClothing()
         {
-            if (Directory.Exists("Assets/Huey/Output"))
+            string exportLocation = AssetDatabase.LoadAssetAtPath<HueyColorSettings>("Assets/Huey/ColorSettings.asset").ExportLocation;
+
+            if (Directory.Exists(exportLocation))
             {
-                Directory.Delete("Assets/Huey/Output", true);
+                Directory.Delete(exportLocation, true);
             }
 
-            ProcessClothingType("Pants");
-            ProcessClothingType("Shirts");
+            ProcessClothingType("Pants", exportLocation);
+            ProcessClothingType("Shirts", exportLocation);
         }
 
         [MenuItem("Assets/Huey/Create Color Variants", false, 10)]
@@ -49,10 +51,10 @@ namespace Editor
             }
         }
 
-        private static void ProcessClothingType(string clothingType)
+        private static void ProcessClothingType(string clothingType, string exportLocation)
         {
             string inputDir = $"Assets/Huey/Input/{clothingType}";
-            string outputDir = $"Assets/Huey/Output/{clothingType}";
+            string outputDir = $"{exportLocation}/{clothingType}";
 
             if (!Directory.Exists(inputDir))
             {

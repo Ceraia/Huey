@@ -1,16 +1,22 @@
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "ColorSettings", menuName = "Huey/Color Settings")]
-public class HueyColorSettings : ScriptableObject
+namespace Editor
 {
-    [System.Serializable]
-    public struct ColorSettings
+    [CreateAssetMenu(fileName = "ColorSettings", menuName = "Huey/Color Settings")]
+    public class HueyColorSettings : ScriptableObject
     {
-        public string name;
-        [Range(0, 360)] public float hueShift;
-        [Range(0, 1)] public float saturationScale;
-        [Range(-100, 100)] public float lightnessPercent;
-    }
+        [System.Serializable]
+        public struct ColorSettings
+        {
+            public string name;
+            [Range(0, 360)] public float hueShift;
+            [Range(0, 1)] public float saturationScale;
+            [Range(-100, 100)] public float lightnessPercent;
+        }
+        // Export directory path
+        public string ExportLocation = "Assets/Huey/Output";
 
-    public ColorSettings[] colors;
+        // List of color settings
+        public ColorSettings[] colors;
+    }
 }
